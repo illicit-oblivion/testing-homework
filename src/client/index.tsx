@@ -9,9 +9,17 @@ import { initStore } from './store';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
+import axios from "axios";
 
 const basename = '/hw/store';
 
+axios.interceptors.request.use(request => {
+    const bugId = process.env.BUG_ID;
+    if (bugId) {
+        request.params = {...request.params, bug_id: bugId};
+    }
+    return request;
+})
 const api = new ExampleApi(basename);
 const cart = new CartApi();
 const store = initStore(api, cart);
