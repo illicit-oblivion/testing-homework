@@ -1,4 +1,4 @@
-const {initBrowser} = require("./helpers");
+const {initBrowser, bugIdQuery} = require("./helpers");
 
 describe('Требования', function() {
     it('на ширине меньше 576px навигационное меню должно скрываться за "гамбургер"', async () => {
@@ -29,7 +29,7 @@ describe('Требования', function() {
         const [browser, page] = await initBrowser();
         try {
             await page.setViewport({width: 570, height: 1200})
-            await page.goto('http://localhost:3000/hw/store');
+            await page.goto('http://localhost:3000/hw/store' + bugIdQuery());
             const hamburger = await page.waitForSelector('button[aria-label="Toggle navigation"]');
             await hamburger.click();
             const menuBeforeHamburgerElClick = await page.waitForSelector('.Application-Menu');
