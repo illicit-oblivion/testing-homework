@@ -13,4 +13,15 @@ describe('Каталог', function() {
             await browser.close();
         }
     });
+
+    it('не загружается товар с api', async () => {
+        const [browser, page] = await initBrowser();
+        try {
+            await page.goto('http://localhost:3000/hw/store/catalog/1' + bugIdQuery());
+            const addToCartBtn = (await page.$x("//button[contains(text(), 'Add to Cart')]"))[0];
+            expect(addToCartBtn).toBeDefined();
+        } finally {
+            await browser.close();
+        }
+    });
 });
