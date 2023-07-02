@@ -1,10 +1,10 @@
-const {initBrowser} = require("./helpers");
+const {initBrowser, bugIdQuery} = require("./helpers");
 
 describe('Корзина', function() {
     it('Содержимое корзины должно сохраняться между перезагрузками страницы', async () => {
         const [browser, page] = await initBrowser();
         try {
-            await page.goto('http://localhost:3000/hw/store/catalog');
+            await page.goto('http://localhost:3000/hw/store/catalog' + bugIdQuery());
             const linkHandlers = await page.$x("//a[contains(text(), 'Details')]");
             if (linkHandlers.length > 0) {
                 await linkHandlers[0].click();
