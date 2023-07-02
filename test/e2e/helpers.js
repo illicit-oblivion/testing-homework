@@ -11,3 +11,14 @@ async function initBrowser() {
     const page = await browser.newPage();
     return [browser, page];
 }
+
+function bugIdQuery() {
+    const bugId = process.env.BUG_ID;
+    if (!bugId) {
+        return '';
+    }
+
+    return '?bug_id=' + bugId;
+}
+
+module.exports = {initBrowser, bugIdQuery}
