@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import {generateProducts, getShortInfo} from "./helpers/generateProducts";
 import {getApp} from "./helpers/getApp";
-import Mock = jest.Mock;
+import {mockFetch, mockXhr} from "./helpers/mockNetwork";
 
 describe('Страницы', () => {
     const user = userEvent.setup();
@@ -45,19 +45,3 @@ describe('Страницы', () => {
         expect(window.XMLHttpRequest).not.toBeCalled()
     });
 });
-
-function mockXhr() {
-    const xhrMockClass = () => ({
-        open: jest.fn(),
-        send: jest.fn(),
-        setRequestHeader: jest.fn()
-    })
-
-    window.XMLHttpRequest = jest.fn().mockImplementation(xhrMockClass) as XMLHttpRequest & Mock
-}
-
-function mockFetch() {
-    window.fetch = jest.fn(() =>
-        Promise.resolve({})
-    ) as never;
-}

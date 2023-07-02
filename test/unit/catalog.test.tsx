@@ -112,4 +112,21 @@ describe('Страница каталог', () => {
 
     });
 
+    test('проверка правильного CSS класса на кнопке', async () => {
+        const firstProduct = products[0];
+        const {app} = getApp({
+            getProducts: () => Promise.resolve({data: products} as never),
+            getProductById: () => Promise.resolve({data: firstProduct} as never),
+        });
+
+        const {getByRole, getAllByText, getAllByTestId} =render(app);
+
+        await user.click(screen.getByText(/catalog/i));
+        await user.click(screen.getAllByText(/Details/i)[0]);
+
+        const addToCartBtn = getByRole('button', {name: 'Add to Cart'});
+
+        expect(addToCartBtn.classList.contains('btn-lg')).toBe(true);
+    });
+
 });

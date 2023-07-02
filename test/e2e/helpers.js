@@ -12,9 +12,9 @@ async function initBrowser() {
     return [browser, page];
 }
 
-function bugIdQuery() {
-    const bugId = process.env.BUG_ID;
-    if (!bugId) {
+function bugIdQuery(onlyThisBug) {
+    const bugId = +process.env.BUG_ID;
+    if (!bugId || onlyThisBug && onlyThisBug !== bugId) {
         return '';
     }
 
